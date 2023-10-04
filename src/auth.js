@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth } from "../firebase/config";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 
+const [userInfo, setUserInfo] = useState(null)
 
 function login(email, password) {
   
@@ -9,8 +10,7 @@ function login(email, password) {
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
-    // ...
-    return user
+    setUserInfo(user)
 
   })
   .catch((error) => {
@@ -24,7 +24,7 @@ function signUp(email, password) {
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
-    // ...
+    setUserInfo(user)
 
   })
   .catch((error) => {
@@ -40,4 +40,4 @@ function logout() {
       });
 }
 
-module.export = { login, signUp, logout }
+module.export = { login, signUp, logout, setUserInfo, userInfo }
