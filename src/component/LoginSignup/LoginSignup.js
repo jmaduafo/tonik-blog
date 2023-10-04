@@ -15,6 +15,7 @@ function LoginSignup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
 
   return (
     <div className='login-signup'>
+      <div className='cover'></div>
       <div className='login-signup-card'>
           <div className='gif-image'>
           </div>

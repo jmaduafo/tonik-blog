@@ -11,11 +11,11 @@ import Navbar from './component/Navbar'
 
 
 function App() {
-  const [ loggedIn, setLoggedIn] = useState(false)
-  const [ userInfo, setUserInfo] = useState(null)
+  const [ loggedIn, setLoggedIn ] = useState(false)
+  const [ userInfo, setUserInfo ] = useState('')
   
   let path = window.location.pathname;
-
+  
   return (
     <div className="App">
       { path === '/' || path === '/signup' || path === '/login'? <Navbar/> : <Sidebar/>}
