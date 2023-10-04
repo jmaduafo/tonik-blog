@@ -21,13 +21,14 @@ function Login({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
-                setUserInfo(user)
-                setLoggedIn(true)
-                setErrorMessage('')
+                
+                
                 navigate('/dashboard')
             })
             .catch((error) => {
+                console.log(error)
                 setErrorMessage('Something went wrong')
+                
             });
         }
     } 

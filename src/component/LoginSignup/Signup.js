@@ -24,9 +24,7 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
                 // Signed up
              
                 const user = userCredential.user;
-                setUserInfo(user)
-                setLoggedIn(true)
-                setErrorMessage('')
+                
                 navigate('/dashboard')
                 
                 
