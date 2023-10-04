@@ -1,8 +1,9 @@
 import React from 'react'
+import LoginSignUp from '../component/LoginSignup'
 
-function LoginSignup() {
+function LoginSignup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
   return (
-    <div>LoginSignup</div>
+    <LoginSignUp loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>
   )
 }
 

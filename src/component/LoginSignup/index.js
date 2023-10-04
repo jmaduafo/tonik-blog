@@ -1,8 +1,9 @@
 import React from 'react'
+import LoginSignup from './LoginSignup'
 
 function index() {
   return (
-    <div>index</div>
+    <LoginSignup/>
   )
 }
 

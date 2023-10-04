@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Urbanist', sans-serif;
+    color: #000;
+    background-color: #fff;
+}
+
+h1 {
+    font-size: clamp(3rem, 4rem, 5rem);
+}
+
+h2 {
+    font-size: clamp(2rem, 3.5rem, 4rem);
+}
+
+h3 {
+    font-size: clamp(1.8rem, 3rem, 3.5em);
+}
+
+h4 {
+    font-size: clamp(1.5rem, 2rem, 3.5rem);
+}
+
+h5 {
+    font-size: clamp(17px, 22px, 32px);
+}
+
+p {
+    font-size: clamp(12px, 14px, 17px);
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: 'Urbanist', sans-serif;
+    cursor: pointer;
+}
+.tonic-logo {
+
+}
