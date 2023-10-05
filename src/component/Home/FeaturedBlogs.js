@@ -1,8 +1,13 @@
 import React from 'react'
+import './featured-blogs.scss'
 
 function FeaturedBlogs() {
   return (
-    <div>FeaturedBlogs</div>
+    <section>
+      <div className='featured-blogs'>
+
+      </div>
+    </section>
   )
 }
 

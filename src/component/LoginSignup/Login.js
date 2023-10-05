@@ -23,12 +23,13 @@ function Login({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
+                console.log(user)
                 
                 navigate('/dashboard')
             })
             .catch((error) => {
                 console.log(error)
-                setErrorMessage('Something went wrong')
+                setErrorMessage('You are not a registered user. Please sign up.')
                 
             });
 

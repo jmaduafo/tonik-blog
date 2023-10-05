@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { auth } from '../../firebase/config'
+import { auth, db } from '../../firebase/config'
+import { doc, getDocs, setDoc, query, where, collection } from 'firebase/firestore' 
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,33 +11,89 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
     const [ password, setPassword ] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
+    const [ userCheck, setUserCheck] = useState()
+    const [ verify, setVerify ] = useState()
+
+    const [userVerify, setUserVerify] = useState(true)
+
     let navigate = useNavigate()
 
     function handleSubmit(e) {
         e.preventDefault()
+            async function usernameCheck() {
+                const usernameValidation = query(collection(db, 'users'), where('username', '==', username))
 
-        if (!email.length || !password.length) {
-            setErrorMessage('Email or password fields cannot be empty')
-        } else {
+                console.log(userVerify)
+                const querySnapshot = await getDocs(query(usernameValidation));
+                
+                console.log(querySnapshot == verify)
+                querySnapshot.forEach((doc) => {
+                    
+                    
+                });
+            }
 
-            createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed up
-             
-                const user = userCredential.user;
-                
-                navigate('/dashboard')
-                
-                
+            usernameCheck()
 
-            })
-            .catch((error) => {
-                console.log(error)
-                setErrorMessage('Something went wrong')
-            });
+            // else if (!userVerify) {
+            //     setErrorMessage('Sorry, this username is already taken')
+            // }
+
+            
+
+            if (!email.length || !password.length) {
+                setErrorMessage('Email or password fields cannot be empty')
+            } else if (password.length < 6)  {   
+                setErrorMessage('Password must be 6 characters or more')
+            } else {
+                
+                createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed up
+            
+                    const user = userCredential.user;
+
+                    // Linking auth with firestore database
+                    async function verify() {
+                        await setDoc(doc(db, 'users', user.uid), {
+                            bio: '',
+                            username: username,
+                            posts: [],
+                            savedPosts: [],
+                            savedPostsCount: 0,
+                            following: [],
+                            followingCount: 0,
+                            followersCount: 0,
+                            commentCount: 0,
+                            comments: [],
+                            favoriteTags: [],
+                            createdAt: user.metadata.creationTime
+
+                        })
+
+                        setUserCheck(user)
+                    }
+
+
+                    verify() 
+
+                    console.log(user)
+                    navigate('/dashboard')
+    
+                })
+                .catch((error) => {
+                    console.log(error)
+                    setErrorMessage('Something went wrong')
+                });
+
+                setErrorMessage('')
+                
+                 
         }
 
-        console.log(userInfo)
+       
+
+        
     }   
 
   return (

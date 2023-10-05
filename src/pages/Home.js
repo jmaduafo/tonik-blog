@@ -5,10 +5,8 @@ import Navbar from '../component/Navbar'
 function Home() {
   return (
     <>
-    <Navbar/>
-    <section>
+      <Navbar/>
       <HomeComp/>
-    </section>
     </>
     
   )

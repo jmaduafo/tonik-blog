@@ -1,0 +1,26 @@
+.break-point {
+    background-color: black;
+    color: white;
+    padding: 60px;
+    text-align: center;
+
+    div:nth-child(2) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        p {
+            max-width: 60%;
+        }
+    }
+
+    div:nth-child(3) {
+        margin-top: 30px;
+        button {
+            background-color: white;
+            color: black;
+            padding: 10px 40px;
+        }
+    }
+    
+}
