@@ -3,8 +3,6 @@ import Sidebar from './Sidebar'
 
 
 function index() {
-  
-
   return (
     <Sidebar/>
   )

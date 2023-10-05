@@ -1,0 +1,13 @@
+.dashboard-all {
+    display: flex;
+    gap: 2em;
+
+    .feed {
+        flex: 2;
+    }
+
+    .users-blogs {
+        flex: 1;
+        
+    }
+}

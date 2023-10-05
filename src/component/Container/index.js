@@ -1,10 +1,9 @@
 import React from 'react'
+import Container from './Container';
 
 function index() {
   return (
-    <div>
-      Profile
-    </div>
+    <Container/>
   )
 }
 

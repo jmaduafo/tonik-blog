@@ -1,8 +1,9 @@
 import React from 'react'
+import Container from '../component/Container'
 
 function Profile() {
   return (
-    <div>Profile</div>
+    <Container/>
   )
 }
 

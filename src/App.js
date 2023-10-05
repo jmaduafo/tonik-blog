@@ -6,28 +6,18 @@ import Dashboard from './pages/Dashboard';
 import LoginSignup from './pages/LoginSignup';
 import Profile from './pages/Profile';
 import CreateEdit from './pages/CreateEdit';
-import Sidebar from './component/Sidebar'
-import Navbar from './component/Navbar'
+import WrongPage from './component/WrongPage'
+import Search from './pages/Search';
+import Detail from './pages/Detail';
 
 
 function App() {
   const [ loggedIn, setLoggedIn ] = useState(false)
   const [ userInfo, setUserInfo ] = useState('')
   
-  function pathNav() {
-    let path = window.location.pathname;
-
-    if (path === '/' || path === '/signup' || path === '/login' || path === '/dashboard') {
-      return ''
-    } else {
-      return <Sidebar/>
-    }
-  }
-  
   
   return (
     <div className="App">
-      { pathNav() }
       <Routes>
         <Route exact path='/' element={<Home/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
@@ -36,6 +26,9 @@ function App() {
         <Route path='/signup' element={<LoginSignup loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>}/>
         <Route path='/create' element={<CreateEdit/>}/>
         <Route path='/edit' element={<CreateEdit/>}/>
+        <Route path='/search/:searchParams' element={<Search/>}/>
+        <Route path='/post/:postId' element={<Detail/>}/>
+        <Route path='*' element={<WrongPage/>}/>
       </Routes>
     </div>
   );

@@ -31,8 +31,13 @@ h5 {
     font-size: clamp(17px, 22px, 32px);
 }
 
+h6 {
+    font-size: clamp(15px, 17px, 21px);
+}
+
 p {
     font-size: clamp(12px, 14px, 17px);
+    font-weight: 200;
 }
 
 a {
@@ -53,5 +58,13 @@ button {
     cursor: pointer;
 }
 .tonic-logo {
+     h4 {
 
+     }
+}
+
+ul {
+    li {
+        list-style-type: none;
+    }
 }

@@ -1,8 +1,9 @@
 import React from 'react'
+import Container from '../component/Container'
 
 function CreateEdit() {
   return (
-    <div>CreateEdit</div>
+    <Container/>
   )
 }
 
