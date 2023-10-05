@@ -14,11 +14,20 @@ function App() {
   const [ loggedIn, setLoggedIn ] = useState(false)
   const [ userInfo, setUserInfo ] = useState('')
   
-  let path = window.location.pathname;
+  function pathNav() {
+    let path = window.location.pathname;
+
+    if (path === '/' || path === '/signup' || path === '/login' || path === '/dashboard') {
+      return ''
+    } else {
+      return <Sidebar/>
+    }
+  }
+  
   
   return (
     <div className="App">
-      { path === '/' || path === '/signup' || path === '/login'? <Navbar/> : <Sidebar/>}
+      { pathNav() }
       <Routes>
         <Route exact path='/' element={<Home/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>

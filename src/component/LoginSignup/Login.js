@@ -23,7 +23,6 @@ function Login({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
-                setUserCred(user.uid)
                 
                 navigate('/dashboard')
             })
@@ -33,7 +32,7 @@ function Login({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
                 
             });
 
-            console.log(userCred)
+            
             
         }
 

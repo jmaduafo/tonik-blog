@@ -1,8 +1,10 @@
 import React from 'react'
+import TonikPick from './TonikPick'
 
 function index() {
   return (
-    <div>index</div>
+    <TonikPick/>
+    
   )
 }
 

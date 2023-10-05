@@ -1,11 +1,16 @@
 import React from 'react'
+import HomeComp from '../component/Home'
 import Navbar from '../component/Navbar'
 
 function Home() {
   return (
-    <div>
-        Home
-    </div>
+    <>
+    <Navbar/>
+    <section>
+      <HomeComp/>
+    </section>
+    </>
+    
   )
 }
 
