@@ -9,8 +9,6 @@ function Login({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
     const [ password, setPassword ] = useState('')
     const [ errorMessage, setErrorMessage] = useState('')
 
-    const [ userCred, setUserCred ] = useState('')
-
     let navigate = useNavigate()
 
     function handleSubmit(e) {
@@ -23,7 +21,8 @@ function Login({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
-                console.log(user)
+                
+                localStorage.setItem('loggedIn', true)
                 
                 navigate('/dashboard')
             })

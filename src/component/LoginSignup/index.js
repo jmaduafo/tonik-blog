@@ -2,12 +2,12 @@ import React from 'react'
 import LoginSignup from './LoginSignup'
 import Navbar from '../Navbar'
 
-function index() {
+function index({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
   return (
     <>
       <Navbar/>
       <section>
-        <LoginSignup/>
+        <LoginSignup loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>
       </section>
     </>
     

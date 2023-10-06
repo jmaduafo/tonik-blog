@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path='/' element={<Home/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/dashboard' element={<Dashboard userInfo={userInfo}/>}/>
         <Route path='/profile/:userId' element={<Profile/>}/>
         <Route path='/login' element={<LoginSignup loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>}/>
         <Route path='/signup' element={<LoginSignup loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>}/>

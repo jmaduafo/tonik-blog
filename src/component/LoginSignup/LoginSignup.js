@@ -4,7 +4,7 @@ import Login from './Login'
 import Signup from './Signup'
 
 function LoginSignup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
-
+  
   function loginSignUp() {
     if (window.location.pathname === '/login') {
       return <Login loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>

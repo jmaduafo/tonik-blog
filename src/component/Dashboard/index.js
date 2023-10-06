@@ -4,15 +4,15 @@ import BlogsForYou from './BlogsForYou'
 import Feed from './Feed'
 import './dashboard.scss'
 
-function index() {
+function index({ userInfo }) {
   return (
       <div className='dashboard-all'>
         <div className='feed'>
-          <Feed/>
+          <Feed userInfo={userInfo}/>
         </div>
         <div className='users-blogs'>
-          <SuggestedUsers/>
-          <BlogsForYou/>
+          <SuggestedUsers userInfo={userInfo}/>
+          <BlogsForYou userInfo={userInfo}/>
         </div>
       </div>
   

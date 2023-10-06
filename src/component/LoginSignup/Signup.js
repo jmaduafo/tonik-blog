@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { auth, db } from '../../firebase/config'
-import { doc, getDocs, setDoc, query, where, collection } from 'firebase/firestore' 
+import { doc, getDocs, setDoc, query, where, collection, serverTimestamp } from 'firebase/firestore' 
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
@@ -23,10 +23,10 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
             async function usernameCheck() {
                 const usernameValidation = query(collection(db, 'users'), where('username', '==', username))
 
-                console.log(userVerify)
-                const querySnapshot = await getDocs(query(usernameValidation));
                 
-                console.log(querySnapshot == verify)
+                const querySnapshot = await getDocs(usernameValidation);
+                
+                console.log(querySnapshot)
                 querySnapshot.forEach((doc) => {
                     
                     
@@ -53,9 +53,12 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
             
                     const user = userCredential.user;
 
+                    
                     // Linking auth with firestore database
                     async function verify() {
                         await setDoc(doc(db, 'users', user.uid), {
+                            id: user.uid,
+                            email: email,
                             bio: '',
                             username: username,
                             posts: [],
@@ -67,17 +70,16 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
                             commentCount: 0,
                             comments: [],
                             favoriteTags: [],
-                            createdAt: user.metadata.creationTime
+                            createdAt: user.metadata.creationTime,
+                            timestamp: serverTimestamp()
 
                         })
 
-                        setUserCheck(user)
                     }
 
 
                     verify() 
-
-                    console.log(user)
+                    
                     navigate('/dashboard')
     
                 })
