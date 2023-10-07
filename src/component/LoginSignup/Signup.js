@@ -11,10 +11,6 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
     const [ password, setPassword ] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    const [ userCheck, setUserCheck] = useState()
-    const [ verify, setVerify ] = useState()
-
-    const [userVerify, setUserVerify] = useState(true)
 
     let navigate = useNavigate()
 

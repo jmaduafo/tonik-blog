@@ -14,7 +14,7 @@ function Container({ userInfo, setFollowing, following }) {
         let path = window.location.pathname;
 
         if (path === '/dashboard') {
-            return <Dashboard userInfo={userInfo} setFollowing={setFollowing} following={following}/>
+            return <Dashboard userInfo={userInfo} setFollowing={setFollowing} following={following} selected={selected}/>
         } else if (path === '/create' || path === '/edit') {
             return <CreateEdit/>
         } else if (path.includes('/profile')) {
@@ -33,22 +33,43 @@ function Container({ userInfo, setFollowing, following }) {
         </div>
         <div className='main-stuff'>
             <div className='post-select-button'>
-                <div className='post-select'>
-                    {/* Rendering out select buttons with click functionality */}
-                    {['For You', 'Following'].map(select => {
-                        return (
-                            <div key={select} onClick={(e) => {setSelected(e.target.innerText)}} 
-                            className={selected.toLowerCase() === select.toLowerCase() ? 'select active' : 'select'}>
-                                <p>{select}</p>
-                            </div>
-                        )
-                    })}
+                {window.location.pathname === '/dashboard' ? 
+                < div className='display-select'>
+                    <div className='post-select'>
+                        {/* Rendering out select buttons with click functionality */}
+                        {['For You', 'Following'].map(select => {
+                            return (
+                                <div key={select} onClick={(e) => {setSelected(e.target.innerText)}} 
+                                className={selected.toLowerCase() === select.toLowerCase() ? 'select active' : 'select'}>
+                                    <p>{select}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <Link to='/create'><div className='main-button'>
+                        <i className='bx bxs-plus-circle'></i>
+                        <button>Create Post</button>
+                    </div>
+                    </Link>
                 </div>
-                <Link to='/create'><div className='main-button'>
-                    <i className='bx bxs-plus-circle'></i>
-                    <button>Create Post</button>
-                </div>
-                </Link>
+                : 
+                <div className='post-button'>
+                   <div className='main-button right'>
+                    { window.location.pathname === '/create' || window.location.pathname === '/edit' ? 
+                    <>
+                        <i className='bx bxs-send'></i>
+                        <button>Send</button>
+                    </> :
+                    <Link to='/create'>
+                    <>
+                        <i className='bx bxs-plus-circle'></i>
+                        <button>Create Post</button>
+                    </>
+                    </Link> 
+                    }
+                    </div>
+                    
+                </div>}
             </div>
             <div className='main-content'>
                 {renderPage()}  

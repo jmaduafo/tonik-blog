@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { auth, db } from '../../firebase/config'
-import { onSnapshot, query, collection, where, orderBy, limit, getDocs, updateDoc, doc } from 'firebase/firestore'
+import { onSnapshot, query, collection, orderBy, limit, updateDoc, doc } from 'firebase/firestore'
 import './suggested-users.scss'
 
 function SuggestedUsers({ userInfo, setFollowing, following }) {

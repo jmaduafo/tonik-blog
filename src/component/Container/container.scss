@@ -10,22 +10,26 @@
         padding: 40px 50px 0;
 
         .post-select-button {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
 
-            .post-select {
+            .display-select {
                 display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
 
-                .select {
-                    padding: 10px 30px; 
-                    cursor: pointer;
+                .post-select {
+                    display: flex;
 
-                    &.active {
-                        border-bottom: 2px solid #000;
+                    .select {
+                        padding: 10px 30px; 
+                        cursor: pointer;
+
+                        &.active {
+                            border-bottom: 2px solid #000;
+                        }
                     }
                 }
             }
+            
             .main-button {
                 background-color: black;
                 border-radius: 15px;
@@ -43,7 +47,18 @@
                 i {
                     color: white;
                 }
+
             }
+
+            .post-button {
+                display: flex;
+                justify-content: right;
+                .right {
+                    width: fit-content;
+                }
+            }
+
+            
         }
 
         .main-content {
