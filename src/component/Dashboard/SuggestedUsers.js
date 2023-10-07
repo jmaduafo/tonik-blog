@@ -32,7 +32,7 @@ function SuggestedUsers({ userInfo, setFollowing, following }) {
     async function followingUpdate(user) {
       let userFollowing = user.following;
 
-      // const userRef = doc(db, 'users', auth.currentUser.uid)
+      // const userRef = collection(db, 'users', auth.currentUser.uid)
 
 
       // If user is clicked, check if user is added to the array

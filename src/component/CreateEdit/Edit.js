@@ -2,12 +2,21 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function Edit() {
-    const [value, setValue] = useState('');
+function Edit({ setTitle, title, setValue, value, setTags, tags}) {
+    const [ module, setModule ] = useState({
+        toolbar: [
+          [{ 'header': [1, 2, 3, false] }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+          ['link', 'image'],
+          ['clean']
+        ],
+    })
+
   return (
     <div className='create-edit'>
-        <input type='text' />
-        <ReactQuill theme="snow" value={value} onChange={setValue} />
+        <input type='text' placeholder='.' value={title} onChange={(e) => setTitle(e.target.value)}/>
+        <ReactQuill modules={module} theme="snow" value={value} onChange={setValue} />
     </div>
   )
 }
