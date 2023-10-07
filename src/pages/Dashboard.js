@@ -1,10 +1,10 @@
 import React from 'react'
 import Container from '../component/Container'
 
-function Dashboard() {
+function Dashboard({ userInfo, setFollowing, following }) {
   return (
     <>
-      <Container/>
+      <Container userInfo={userInfo} setFollowing={setFollowing} following={following}/>
     </>
     
   )

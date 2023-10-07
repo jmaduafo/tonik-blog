@@ -8,19 +8,19 @@ import { Link } from 'react-router-dom'
 import './container.scss'
 import '../Sidebar/sidebar.scss'
 
-function Container() {
+function Container({ userInfo, setFollowing, following }) {
     const [ selected, setSelected ] = useState('for you')
     function renderPage() {
         let path = window.location.pathname;
 
         if (path === '/dashboard') {
-            return <Dashboard/>
+            return <Dashboard userInfo={userInfo} setFollowing={setFollowing} following={following}/>
         } else if (path === '/create' || path === '/edit') {
             return <CreateEdit/>
         } else if (path.includes('/profile')) {
             return <Profile/>
         } else if (path.includes('/search')) {
-            return <Dashboard path={'search'}/>
+            return <Dashboard userInfo={userInfo} setFollowing={setFollowing} following={following} path={'search'}/>
         } else if (path.includes('/post')) {
             return <Detail/>
         }
@@ -50,7 +50,10 @@ function Container() {
                 </div>
                 </Link>
             </div>
-            {renderPage()}
+            <div className='main-content'>
+                {renderPage()}  
+            </div>
+            
         </div>
        
     </div>

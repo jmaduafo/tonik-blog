@@ -1,9 +1,9 @@
 import React from 'react'
 import Container from './Container';
 
-function index() {
+function index({ userInfo, setFollowing, following }) {
   return (
-    <Container/>
+    <Container userInfo={userInfo} setFollowing={setFollowing} following={following}/>
   )
 }
 

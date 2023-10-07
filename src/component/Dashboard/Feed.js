@@ -4,8 +4,10 @@ import './feed.scss'
 function Feed() {
   return (
     <section className='feed-section'>
-      <div>
-
+      <div className='feed-container'>
+        <div>
+          
+        </div>
       </div>
     </section>
   )

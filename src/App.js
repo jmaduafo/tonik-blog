@@ -14,13 +14,14 @@ import Detail from './pages/Detail';
 function App() {
   const [ loggedIn, setLoggedIn ] = useState(false)
   const [ userInfo, setUserInfo ] = useState('')
+  const [ following, setFollowing] = useState()
   
   
   return (
     <div className="App">
       <Routes>
         <Route exact path='/' element={<Home/>}/>
-        <Route path='/dashboard' element={<Dashboard userInfo={userInfo}/>}/>
+        <Route path='/dashboard' element={<Dashboard userInfo={userInfo} setFollowing={setFollowing} following={following}/>}/>
         <Route path='/profile/:userId' element={<Profile/>}/>
         <Route path='/login' element={<LoginSignup loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>}/>
         <Route path='/signup' element={<LoginSignup loggedIn={loggedIn} setLoggedIn={ setLoggedIn } userInfo={ userInfo } setUserInfo={setUserInfo}/>}/>

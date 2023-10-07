@@ -1,0 +1,40 @@
+.suggested-content {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    .latest {
+        padding: 10px 0 20px;
+        .suggested-users {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 5px 10px;
+            border-radius: 10px;
+            transition: all .4s ease;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, .05);
+            }
+            
+    
+            .user-pics {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: aliceblue;
+                cursor: pointer;
+            }
+
+            .username-follow {
+                p {
+                    font-weight: 400;
+                }
+                p:last-child {
+                    font-weight: 500;
+                    font-size: 12px;
+                    cursor: pointer;
+                    color: rgb(81, 155, 195);
+                }
+            }
+        }
+    }
+    
+}
