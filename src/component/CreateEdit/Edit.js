@@ -15,7 +15,7 @@ function Edit({ setTitle, title, setValue, value, setTags, tags}) {
 
   return (
     <div className='create-edit'>
-        <input type='text' placeholder='.' value={title} onChange={(e) => setTitle(e.target.value)}/>
+        <input type='text' value={title} onChange={(e) => setTitle(e.target.value)}/>
         <ReactQuill modules={module} theme="snow" value={value} onChange={setValue} />
     </div>
   )

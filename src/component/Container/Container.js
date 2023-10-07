@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom'
 import './container.scss'
 import '../Sidebar/sidebar.scss'
 import { auth, db } from '../../firebase/config'
-import { onSnapshot, query, collection, orderBy, where, updateDoc, addDoc, doc } from 'firebase/firestore'
+import { onSnapshot, query, collection, orderBy, where, updateDoc, addDoc, doc, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -53,9 +54,10 @@ function Container({ userInfo, setFollowing, following }) {
                     
                     try {
                         await addDoc(postRef, {
-                            user_id: auth.currentUser.uid,
+                            user_id: auth?.currentUser?.uid,
                             title: title,
                             content: value,
+                            timestamp: serverTimestamp()
                         })
 
                         toast.success('Post successfully created!', {
@@ -80,11 +82,11 @@ function Container({ userInfo, setFollowing, following }) {
     
             } else if (window.location.pathname.includes('/edit')) {
                 async function postContent() {
-                    const postRef = collection(db, 'posts', where('user_id', '==', auth.currentUser.uid))
+                    const postRef = collection(db, 'posts', where('user_id', '==', auth?.currentUser?.uid))
                     
                     try {
                         await updateDoc(postRef, {
-                            user_id: auth.currentUser.uid,
+                            user_id: auth?.currentUser?.uid,
                             title: title,
                             content: value,
                         })
@@ -130,7 +132,7 @@ function Container({ userInfo, setFollowing, following }) {
                             )
                         })}
                     </div>
-                    <Link to={`/create/${auth.currentUser.uid}`}><div className='main-button'>
+                    <Link to={`/create/${auth?.currentUser?.uid}`}><div className='main-button'>
                         <i className='bx bxs-plus-circle'></i>
                         <button>Create Post</button>
                     </div>
@@ -144,7 +146,7 @@ function Container({ userInfo, setFollowing, following }) {
                         <i className='bx bxs-send'></i>
                         <button onClick={handlePost}>Send</button>
                     </> :
-                    <Link to={`/create/${auth.currentUser.uid}`}>
+                    <Link to={`/create/${auth?.currentUser?.uid}`}>
                     <>
                         <i className='bx bxs-plus-circle'></i>
                         <button>Create Post</button>
