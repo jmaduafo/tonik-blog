@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import './container.scss'
 import '../Sidebar/sidebar.scss'
 import { auth, db } from '../../firebase/config'
-import { onSnapshot, query, collection, orderBy, where, updateDoc, addDoc, doc, serverTimestamp } from 'firebase/firestore'
+import { onSnapshot, query, collection, orderBy, where, updateDoc, addDoc, getDocs, getDoc, doc, setDoc, serverTimestamp, limit } from 'firebase/firestore'
 import { storage } from '../../firebase/config'
 import { ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
@@ -23,8 +23,8 @@ function Container({ userInfo, setFollowing, following }) {
     const [ title, setTitle ] = useState('')
     const [ value, setValue ] = useState('')
     const [ image, setImage ] = useState(null)
-    const [ url, setUrl ] = useState(null)
     const [ tags, setTags ] = useState([])
+    const [ userPostInfo, setUserPostInfo ] = useState()
 
     let navigate = useNavigate()
 
@@ -74,22 +74,19 @@ function Container({ userInfo, setFollowing, following }) {
                                     imageUrl: url,
                                     title: title,
                                     content: value,
+                                    views: 0,
+                                    commentCount: 0,
                                     timestamp: serverTimestamp()
                                 })
         
-                                toast.success('Post successfully created!', {
-                                    position: toast.POSITION.BOTTOM_RIGHT
-                                });
-        
-                                navigate('/dashboard')
-        
                                 
                             } catch (err) {
-                                // if (err) {
-                                //     toast.error('Media is too large. Must be less than 1.05MB', {
-                                //         position: toast.POSITION.BOTTOM_RIGHT
-                                //     });
-                                // }
+                                if (err === 'The value of property "content" is longer than 1048487 bytes.') {
+                                    toast.error('Media is too large. Must be less than 1.05MB', {
+                                        position: toast.POSITION.BOTTOM_RIGHT
+                                    });
+                                }
+
                                 toast.error('Something went wrong', {
                                     position: toast.POSITION.BOTTOM_RIGHT
                                 });
@@ -101,6 +98,54 @@ function Container({ userInfo, setFollowing, following }) {
                         }
         
                         postContent()
+
+                        async function userPostContent() {
+
+                            const postRef = query(collection(db, 'posts'), orderBy("timestamp", "desc"), limit(1))
+
+                            try {
+                                async function postGet() {
+                                    // Get latest post
+                                    const docSnap = await getDocs(postRef)
+                                    
+    
+                                    docSnap.forEach(docRef => {
+                                        console.log(docRef.data())
+                                        const userRef = doc(db, 'users', docRef.data().user_id)
+    
+                                       // Getting the user data from collection and pushing to an empty array
+                                        async function userPost() {
+                                            // Getting one doc
+                                            const docSnap = await getDoc(userRef)
+
+                                            // Use doc() when referencing a doc; collection() for collection
+                                            const postReference = doc(db, 'posts', docRef.id)
+                                            
+                                            // Setting the user object and updating/adding it to existing post
+                                            await updateDoc(postReference, {
+                                                user: docSnap.data()
+                                            })
+                                        }
+                                        userPost()                                     
+                                    })
+                                }  
+                                postGet()
+
+                                toast.success('Post successfully created!', {
+                                    position: toast.POSITION.BOTTOM_RIGHT
+                                });
+
+                                navigate('/dashboard')
+
+
+
+                            } catch (err) {
+                                console.log(err)
+                            }
+                              
+                        }
+                        userPostContent() 
+
                     })
                     .catch(err => {
                         console.log(err)
