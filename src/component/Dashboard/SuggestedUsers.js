@@ -32,33 +32,38 @@ function SuggestedUsers({ userInfo, setFollowing, following }) {
     async function followingUpdate(user) {
       let userFollowing = user.following;
 
-      // const userRef = collection(db, 'users', auth.currentUser.uid)
+      const userRef = doc(db, 'users', auth.currentUser.uid)
 
 
       // If user is clicked, check if user is added to the array
       // If user id is in array, then 
-      
-      
-
-      console.log(userFollowing, userFollowing.length)
-
-      console.log(userFollowing.includes(user.id))
-
 
       if (!userFollowing.includes(user.id)) {
         let following = userFollowing.push(user.id)
+        
+        try {
+          await updateDoc(userRef, {
+            following: following,
+            followingCount: userFollowing.length
+          })
+        } catch (err) {
+          console.log(err)
+        }
 
-        // await updateDoc(userRef, {
-      //   following: following,
-      //   followingCount: userFollowing.length
-      // })
+        console.log(userFollowing)
       } else {
         let unfollow = userFollowing.filter(filter => filter !== user.id)
-    
-      // await updateDoc(userRef, {
-      //   following: unfollow,
-      //   followingCount: userFollowing.length
-      // })
+
+        try {
+          await updateDoc(userRef, {
+            following: unfollow,
+            followingCount: userFollowing.length
+          })
+        } catch (err) {
+          console.log(err)
+        }
+        
+        console.log(userFollowing)
 
       }
 
@@ -84,7 +89,7 @@ function SuggestedUsers({ userInfo, setFollowing, following }) {
             </div>
             <div className='username-follow'>
               <p>{user.username}</p>
-              <p onClick={() => {followingUpdate(user)}}>{following?.includes(user.id) ? <span>Following</span> : <span>Follow</span>}</p>
+              <p onClick={() => {followingUpdate(user)}}> {following?.includes(user.id) ? <span>Following</span> : <span>Follow</span>}</p>
             </div>
           </div>
         )

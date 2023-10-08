@@ -8,7 +8,7 @@ import { timestamp } from '../../utils/timestampConverter'
 
 function Feed({ userInfo, setFollowing, following, selected }) {
   const [ showFeed, setShowFeed ] = useState()
-  const [ userPost, setUserPost ] = useState()
+  const [ toggle, setToggle ] = useState(false)
 
   function displayFeed() {
     if (selected === 'for you') {
@@ -94,7 +94,7 @@ function Feed({ userInfo, setFollowing, following, selected }) {
 
   function followingRender(document) {
     if (document.user_id === auth?.currentUser?.uid) {
-      return
+      return <Link to={`/edit/${document.user_id}/${document.id}`}><i title='Edit' className='bx bx-message-square-edit' ></i></Link>
     } else {
       return <p>Follow</p>
     }
@@ -113,9 +113,11 @@ function Feed({ userInfo, setFollowing, following, selected }) {
               <div className='feed-blog' key={feed.id}>
                 <div className='feed-top'>
                   <div className='profile-pic-name'>
+                    <Link to={`/profile/${feed.user_id}`}>
                     <div className='profile-pic'>
                       <img src='' alt=''/>
                     </div>
+                    </Link>
                     <div className='username-date'>
                       <p>{feed.user && feed.user.username}</p>
                       <p>{timestamp(feed.timestamp.seconds)}</p>
@@ -142,11 +144,11 @@ function Feed({ userInfo, setFollowing, following, selected }) {
                   <div className='comment-save-view'>
                     <div className='comment-save'>
                       <div>
-                        <i class='bx bxs-message-rounded-dots' ></i>
+                        <i className='bx bxs-message-rounded-dots' ></i>
                         <p>0 comments</p>
                       </div>
                       <div>
-                        <i class='bx bxs-bookmark'></i>
+                        <i className='bx bxs-bookmark'></i>
                         <p>0 saves</p>
                       </div>
                     </div>
