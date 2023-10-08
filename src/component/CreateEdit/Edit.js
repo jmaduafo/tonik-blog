@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function Edit({ setTitle, title, setValue, value, setTags, tags}) {
+function Edit({ setTitle, title, setValue, value, setTags, tags, setImage, image }) {
     const [ module, setModule ] = useState({
         toolbar: [
           [{ 'header': [1, 2, 3, false] }],

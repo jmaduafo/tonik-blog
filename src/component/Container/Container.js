@@ -9,7 +9,10 @@ import './container.scss'
 import '../Sidebar/sidebar.scss'
 import { auth, db } from '../../firebase/config'
 import { onSnapshot, query, collection, orderBy, where, updateDoc, addDoc, doc, serverTimestamp } from 'firebase/firestore'
+import { storage } from '../../firebase/config'
+import { ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
+
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -19,6 +22,8 @@ function Container({ userInfo, setFollowing, following }) {
     const [ selected, setSelected ] = useState('for you')
     const [ title, setTitle ] = useState('')
     const [ value, setValue ] = useState('')
+    const [ image, setImage ] = useState(null)
+    const [ url, setUrl ] = useState(null)
     const [ tags, setTags ] = useState([])
 
     let navigate = useNavigate()
@@ -26,10 +31,13 @@ function Container({ userInfo, setFollowing, following }) {
     function renderPage() {
         let path = window.location.pathname;
 
+        
+
         if (path === '/dashboard') {
             return <Dashboard userInfo={userInfo} setFollowing={setFollowing} following={following} selected={selected}/>
         } else if (path.includes('/create') || path.includes('/edit')) {
-            return <CreateEdit setTitle={setTitle} title={title} setValue={setValue} value={value} setTags={setTags} tags={tags}/>
+            return <CreateEdit setTitle={setTitle} title={title} setValue={setValue} value={value} setTags={setTags} tags={tags}
+            setImage={setImage} image={image}/>
         } else if (path.includes('/profile')) {
             return <Profile/>
         } else if (path.includes('/search')) {
@@ -46,38 +54,63 @@ function Container({ userInfo, setFollowing, following }) {
             toast.error('Entries must not be empty!', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
-
+        
+        } else if (image === null) {
+            toast.error('Please select a thumbnail image', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
         } else {
             if (window.location.pathname.includes('/create')) {
-                async function postContent() {
-                    const postRef = collection(db, 'posts')
-                    
-                    try {
-                        await addDoc(postRef, {
-                            user_id: auth?.currentUser?.uid,
-                            title: title,
-                            content: value,
-                            timestamp: serverTimestamp()
-                        })
-
-                        toast.success('Post successfully created!', {
-                            position: toast.POSITION.BOTTOM_RIGHT
-                        });
-
-                        navigate('/dashboard')
-
+                const imageRef = ref(storage, `images/${image.name + Math.random() * 100000}`)
+                uploadBytes(imageRef, image).then(() => {
+                    getDownloadURL(imageRef)
+                    .then(url => {
                         
-                    } catch (err) {
-                        toast.error('Something went wrong', {
-                            position: toast.POSITION.BOTTOM_RIGHT
-                        });
-
+                        async function postContent() {
+                            const postRef = collection(db, 'posts')
+                            try {
+                                await addDoc(postRef, {
+                                    user_id: auth?.currentUser?.uid,
+                                    imageUrl: url,
+                                    title: title,
+                                    content: value,
+                                    timestamp: serverTimestamp()
+                                })
+        
+                                toast.success('Post successfully created!', {
+                                    position: toast.POSITION.BOTTOM_RIGHT
+                                });
+        
+                                navigate('/dashboard')
+        
+                                
+                            } catch (err) {
+                                // if (err) {
+                                //     toast.error('Media is too large. Must be less than 1.05MB', {
+                                //         position: toast.POSITION.BOTTOM_RIGHT
+                                //     });
+                                // }
+                                toast.error('Something went wrong', {
+                                    position: toast.POSITION.BOTTOM_RIGHT
+                                });
+        
+                                
+                                console.log(err)
+                            }
+                            
+                        }
+        
+                        postContent()
+                    })
+                    .catch(err => {
                         console.log(err)
-                    }
-                    
-                }
+                    })
 
-                postContent()
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                
                 
     
             } else if (window.location.pathname.includes('/edit')) {
@@ -108,6 +141,7 @@ function Container({ userInfo, setFollowing, following }) {
 
                 postContent()
             }
+            
             
         }
     }

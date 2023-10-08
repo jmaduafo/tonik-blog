@@ -38,7 +38,7 @@ function App() {
         <Route path='/create/:userId' element={<CreateEdit/>}/>
         <Route path='/edit/:userId/:postId' element={<CreateEdit/>}/>
         <Route path='/search/:searchParams' element={<Search/>}/>
-        <Route path='/post/:postId' element={<Detail/>}/>
+        <Route path='/post/:userId/:postId' element={<Detail/>}/>
         <Route path='*' element={<WrongPage/>}/>
       </Routes>
     </div>
