@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { auth, db } from '../../firebase/config'
 import { onSnapshot, query, collection, orderBy, limit, updateDoc, doc } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
 import './suggested-users.scss'
 
 function SuggestedUsers({ userInfo, setFollowing, following }) {
@@ -84,9 +85,10 @@ function SuggestedUsers({ userInfo, setFollowing, following }) {
       {suggestedUsers?.map(user => {
         return (
           <div className='suggested-users' key={user.username}>
-            <div className='user-pics'>
+            <Link to={`/profile/${user.id}`}><div className='user-pics'>
               <img src='' alt=''/>
             </div>
+            </Link>
             <div className='username-follow'>
               <p>{user.username}</p>
               <p onClick={() => {followingUpdate(user)}}> {following?.includes(user.id) ? <span>Following</span> : <span>Follow</span>}</p>

@@ -43,7 +43,7 @@ function BlogsForYou() {
       <div className='blog-container'>
       {blogsList?.map(blog => {
         return (
-        <Link key={blog.id} to={`/post/${blog.user_id}/${blog.id}`}>
+        <Link key={blog.content} to={`/post/${blog.user_id}/${blog.id}`}>
           <div className='blog-card'>
             <div className='blog-image'>
               <img src={blog.imageUrl} alt={blog.id}/>
@@ -52,7 +52,7 @@ function BlogsForYou() {
               <h6>{blog.title}</h6>
             </div>
             <div className='blog-content'>
-              <p>{blog.content.length > 120 ? parse(blog.content.substring(0, 121) + '...') :  parse(blog.content)}</p>
+              {blog.content.length > 120 ? parse(blog.content.substring(0, 121) + '...') :  parse(blog.content)}
             </div>
             
           </div>

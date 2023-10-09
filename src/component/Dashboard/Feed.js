@@ -115,11 +115,11 @@ function Feed({ userInfo, setFollowing, following, selected }) {
                   <div className='profile-pic-name'>
                     <Link to={`/profile/${feed.user_id}`}>
                     <div className='profile-pic'>
-                      <img src='' alt=''/>
+                    {feed.profileUrl ? <img src={feed.profileUrl} alt={feed.id}/> : <i class='bx bxs-user'></i>}
                     </div>
                     </Link>
                     <div className='username-date'>
-                      <p>{feed.user && feed.user.username}</p>
+                      <Link to={`/profile/${feed.user_id}`}><p>{feed.user && feed.user.username}</p></Link>
                       <p>{timestamp(feed.timestamp.seconds)}</p>
                     </div> 
                   </div>

@@ -6,6 +6,10 @@
             padding: 20px 0;
             border-bottom: 1px solid rgba(0, 0, 0, .08);
             position: relative;
+
+            &:last-child {
+                border: none;
+            }
             
             .feed-top {
                 display: flex;
@@ -19,13 +23,28 @@
                     gap: 1.5rem;
 
                     .profile-pic {
-                        width: 50px;
-                        height: 50px;
+                        width: 40px;
+                        height: 40px;
                         border-radius: 50%;
-                        background-color: aliceblue;
+                        background-color: rgb(187, 200, 207);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        i {
+                            font-size: 18px;
+                            color: white;
+                        }
                     }
                 }
 
+                .username-date {
+                    p {
+                        &:first-child {
+                            font-weight: 500;
+                        }
+                    }
+                }
                 .following {
                     p {
                         color: rgb(81, 155, 195);

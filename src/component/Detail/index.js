@@ -3,9 +3,9 @@ import Detail from './Detail'
 
 function index() {
   return (
-    <div>
+    <section>
         <Detail/>
-    </div>
+    </section>
   )
 }
 

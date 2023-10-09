@@ -1,0 +1,151 @@
+.detail-section {
+    .detail-container {
+        .user-info-save {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                .user-image {
+                    background-color: rgb(187, 200, 207);
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    i {
+                        font-size: 26px;
+                        color: white;
+                    }
+                }
+                
+            }
+
+            .save {
+                i {
+                    font-size: 26px;
+                }
+            }
+        }
+
+        .comment-save-view {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+
+            .comment-save {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+
+                div {
+                    display: flex;
+                    gap: 5px;
+                }
+            }
+        }
+
+        .content {
+            margin-top: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-comments {
+            padding: 2rem 0 10rem;
+            width: 100%;
+
+            .comment-form {
+                position: relative;
+                .comment-top {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 1.5rem; 
+                    margin-top: 3rem;
+
+                    .comment-emoji {
+                        flex-basis: 90%;
+                        height: fit-content;
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        padding: 0 15px 5px;
+                        border: none;
+                        border-bottom: 2px solid rgba(0, 0, 0);
+                        
+                        .textarea-emoji {
+                            width: 95%;
+                            .input-style {
+                                min-height: 30px;
+                                max-height: 10rem;
+                                width: 100%;
+                                height: auto;
+                                border: none;
+                                outline: none;
+                                resize: none;
+                                font-family: "Urbanist", sans-serif;
+                                
+                                &::-webkit-scrollbar {
+                                    width: 2px;
+                                }
+                            }
+                        }
+
+                        .icon-emoji {
+                            position: relative;
+
+                            i {
+                                font-size: 20px;
+                                cursor: pointer;
+                            }
+                        }                        
+                    }
+                    button {
+                        font-size: 13px;
+                        padding: 5px 25px;
+                        border-radius: 30px;
+                        
+                    }
+
+                    // .comment-btn {
+                    //     flex-basis: 10%;
+                    //     display: flex;
+                    //     align-items: center;
+                    //     justify-content: center;
+                    //     gap: 5px;
+                    //     background-color: black;
+                    //     padding: 5px 15px;
+                    //     border-radius: 20px;
+                    //     cursor: pointer;
+
+                    //     button {
+                    //         font-size: 13px;
+                    //         padding: 5px;
+                    //     }
+
+                    //     i {
+                    //         color: white;
+                    //     }
+
+                    // }
+
+                    
+                }
+
+                .picker {
+                    position: relative;
+                }
+            }
+        }
+
+    }
+}
