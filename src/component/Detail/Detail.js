@@ -10,9 +10,10 @@ import Picker from 'emoji-picker-react';
 import './detail.scss'
 
 function Detail() {
-    const [ detailInfo, setDetailInfo ] = useState()
+    const [detailInfo, setDetailInfo ] = useState()
     const [inputStr, setInputStr] = useState("");
     const [showPicker, setShowPicker] = useState(false);
+    const [clicked, setClick] = useState(false);
     const [commentDisplay, setCommentDisplay] = useState();
 
     const onEmojiClick = (emojiObject) => {
@@ -34,6 +35,8 @@ function Detail() {
 
     function handleComment(e) {
         e.preventDefault()
+
+        setClick(prev => !prev)
 
         if (!inputStr.length) {
             toast.error('Comments cannot be empty!', {
@@ -59,9 +62,6 @@ function Detail() {
                     const userSnap = await getDoc(userRef)
 
                     commentSnap.forEach(comment => {
-                        console.log(comment.data())
-                        console.log(userSnap.data())
-
                         async function commenter() {
                             await updateDoc(comment.ref, {
                                 id: comment.id,
@@ -118,7 +118,7 @@ function Detail() {
         showComments()
         // console.log(commentDisplay)
 
-    }, [postId])
+    }, [clicked])
   return (
     <div className='detail-section'>
         <div className='detail-container'>
@@ -153,6 +153,11 @@ function Detail() {
                 <div className='view'>
                     <p>0 views</p>
                 </div>
+            </div>
+            <div className='thumbnail-image'>
+                <div className='thumbnail'>
+                    <img src={detailInfo?.imageUrl} alt={postId + ' thumbnail'}/>
+                </div>  
             </div>
             <div className='content'>
                 {typeof detailInfo?.content === 'string' && parse(detailInfo?.content)}
