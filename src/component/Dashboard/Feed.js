@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { auth, db } from '../../firebase/config'
-import { onSnapshot, query, collection, doc, where, orderBy, getDocs, updateDoc } from 'firebase/firestore'
+import { onSnapshot, query, collection, doc, where, orderBy, getDocs, updateDoc, getCountFromServer } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 import './feed.scss'
 import parse from 'html-react-parser';
@@ -8,13 +8,11 @@ import { timestamp } from '../../utils/timestampConverter'
 
 function Feed({ userInfo, setFollowing, following, selected }) {
   const [ showFeed, setShowFeed ] = useState()
-  const [ toggle, setToggle ] = useState(false)
 
   function displayFeed() {
     if (selected === 'for you') {
       const feedRef = query(collection(db, "posts"), orderBy("timestamp", "desc"))
-
-
+      
         async function getPosts() {
           const docSnap = await getDocs(feedRef)
 
@@ -22,37 +20,22 @@ function Feed({ userInfo, setFollowing, following, selected }) {
 
           docSnap.forEach(doc => {
             posts.push({...doc.data(), id: doc.id})
-            
+
+            // const commentsRef = query(collection(db, "comments"), where("post_id", "==", doc.id))
+
+            // async function getCommentCount() {
+            //   const snapshot = await getCountFromServer(commentsRef);
+
+              
+            // }
+
+            // getCommentCount()
           })
 
           setShowFeed(posts)
           console.log(showFeed)
         }
         getPosts()
-        // console.log(userPost)
-
-        // showFeed?.forEach(feed => {
-        //   console.log(feed)
-        //   const userRef = query(collection(db, 'users'), where('id', '==', feed.user_id))
-
-        //   async function getUsers() {
-        //     const docSnap = await getDocs(userRef)
-
-        //     const users = []
-
-        //     docSnap.forEach(doc => {
-        //       users.push({...doc.data(), })
-              
-        //     })
-            
-
-        //     setUserPost(users)
-        //   }
-
-        //   getUsers()
-
-        // })
-        // console.log(userPost)
 
 
     } else {
@@ -79,11 +62,16 @@ function Feed({ userInfo, setFollowing, following, selected }) {
   function handleView(document) {
     const feedRef = doc(db, "posts", document.id)
 
-    if (document.view) {
+    if (document.views) {
       async function getViews() {
-        await updateDoc(feedRef, {
-          view: document.view++
-      })
+        try {
+          await updateDoc(feedRef, {
+            views: document.views++
+          })
+        } catch (err) {
+          console.log(err)
+        }
+      
       }
 
       getViews()
@@ -115,20 +103,20 @@ function Feed({ userInfo, setFollowing, following, selected }) {
                   <div className='profile-pic-name'>
                     <Link to={`/profile/${feed.user_id}`}>
                     <div className='profile-pic'>
-                    {feed.profileUrl ? <img src={feed.profileUrl} alt={feed.id}/> : <i class='bx bxs-user'></i>}
+                    {feed.user?.profileUrl ? <img src={feed.user?.profileUrl} alt={feed.id}/> : <i className='bx bxs-user'></i>}
                     </div>
                     </Link>
                     <div className='username-date'>
-                      <Link to={`/profile/${feed.user_id}`}><p>{feed.user && feed.user.username}</p></Link>
-                      <p>{timestamp(feed.timestamp.seconds)}</p>
+                      <Link to={`/profile/${feed.user_id}`}><p>{feed.user && feed.user?.username}</p></Link>
+                      {timestamp(feed.timestamp?.seconds) === 'Invalid Date' ? <p></p> : <p>{timestamp(feed.timestamp?.seconds)}</p>}
                     </div> 
                   </div>
                   <div className='following'>
                     {followingRender(feed)}
                   </div>
                 </div>
-                <Link to={`/post/${feed.user_id}/${feed.id}`} >
-                  <div className='display' onClick={handleView(feed)}>
+                <Link to={`/post/${feed.user_id}/${feed.id}`} onClick={handleView(feed)}>
+                  <div className='display'>
                     <div className='image'>
                       {feed.imageUrl && <img src={feed.imageUrl} alt={feed.id}/>}
                     </div>
@@ -136,7 +124,7 @@ function Feed({ userInfo, setFollowing, following, selected }) {
                       <h6>{feed.title}</h6>
                     </div>
                     <div>
-                      {feed.content.length > 120 ? parse(feed.content.substring(0, 121) + '...') :  parse(feed.content)}
+                      {feed.content?.length > 120 ? parse(feed.content?.substring(0, 121) + '...') :  parse(feed.content)}
                     </div>
                   </div>
                 </Link>
@@ -153,7 +141,7 @@ function Feed({ userInfo, setFollowing, following, selected }) {
                       </div>
                     </div>
                     <div className='view'>
-                      <p>0 views</p>
+                      <p>{feed.views ? feed.views + ' views' : '0 views'}</p>
                     </div>
                   </div>
                 </div>

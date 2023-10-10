@@ -19,8 +19,16 @@
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
-                background-color: aliceblue;
+                background-color: rgb(187, 200, 207);
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 cursor: pointer;
+
+                i {
+                    color: white;
+                    font-size: 18px;
+                }
             }
 
             .username-follow {

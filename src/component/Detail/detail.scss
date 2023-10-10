@@ -58,10 +58,14 @@
             margin-top: 4rem;
             padding-bottom: 3rem;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            p {
+                font-size: 17px;
+            }
         }
 
         .detail-comments {
-            padding: 2rem 0 10rem;
+            padding: 2rem 0 4rem;
             width: 100%;
 
             .comment-form {
@@ -114,35 +118,65 @@
                         padding: 5px 25px;
                         border-radius: 30px;
                         
-                    }
-
-                    // .comment-btn {
-                    //     flex-basis: 10%;
-                    //     display: flex;
-                    //     align-items: center;
-                    //     justify-content: center;
-                    //     gap: 5px;
-                    //     background-color: black;
-                    //     padding: 5px 15px;
-                    //     border-radius: 20px;
-                    //     cursor: pointer;
-
-                    //     button {
-                    //         font-size: 13px;
-                    //         padding: 5px;
-                    //     }
-
-                    //     i {
-                    //         color: white;
-                    //     }
-
-                    // }
-
-                    
+                    }                    
                 }
 
                 .picker {
                     position: relative;
+                }
+            }
+        }
+
+        .comment-display {
+            margin-top: 1.5rem;
+            .first-comment {
+                text-align: center;
+                p {
+                    font-size: 16px;
+                }
+            }
+
+            .show-comment {
+                .user-info {
+                    padding: 10px 0;
+                    // border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    .user {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 20px;
+
+                        .user-image {
+                            width: 35px;
+                            height: 35px;
+                            border-radius: 50%;
+                            background-color: rgb(187, 200, 207);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            i {
+                                color: white;
+                            }
+                        }
+
+                        .username-timestamp {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            p {
+                                &:first-child {
+                                    font-weight: 500;
+                                }
+                                
+                            }
+                        }
+                    }
+
+                    .comment-content {
+                        p {
+                            font-size: 15px;
+                        }
+                    }
                 }
             }
         }

@@ -86,7 +86,7 @@ function SuggestedUsers({ userInfo, setFollowing, following }) {
         return (
           <div className='suggested-users' key={user.username}>
             <Link to={`/profile/${user.id}`}><div className='user-pics'>
-              <img src='' alt=''/>
+              {user.profileUrl ? <img src={user.profileUrl} alt={user.id}/> : <i className='bx bxs-user'></i>}
             </div>
             </Link>
             <div className='username-follow'>

@@ -81,7 +81,7 @@ function Container({ userInfo, setFollowing, following }) {
         
                                 
                             } catch (err) {
-                                if (err === 'The value of property "content" is longer than 1048487 bytes.') {
+                                if (err === 'FirebaseError: The value of property "content" is longer than 1048487 bytes.') {
                                     toast.error('Media is too large. Must be less than 1.05MB', {
                                         position: toast.POSITION.BOTTOM_RIGHT
                                     });
@@ -131,29 +131,60 @@ function Container({ userInfo, setFollowing, following }) {
                                 }  
                                 postGet()
 
-                                toast.success('Post successfully created!', {
-                                    position: toast.POSITION.BOTTOM_RIGHT
-                                });
-
-                                navigate('/dashboard')
-
 
 
                             } catch (err) {
                                 console.log(err)
+                                if (err === 'FirebaseError: The value of property "content" is longer than 1048487 bytes.') {
+                                    toast.error('Media is too large. Must be less than 1.05MB', {
+                                        position: toast.POSITION.BOTTOM_RIGHT
+                                    });
+                                }
+
+                                toast.error('Something went wrong', {
+                                    position: toast.POSITION.BOTTOM_RIGHT
+                                });
+                                toast.success('Something went wrong', {
+                                    position: toast.POSITION.BOTTOM_RIGHT
+                                });
                             }
                               
                         }
-                        userPostContent() 
+                        userPostContent()
+                        
+                        toast.success('Post successfully created!', {
+                            position: toast.POSITION.BOTTOM_RIGHT
+                        });
+
+                        navigate('/dashboard')
 
                     })
                     .catch(err => {
                         console.log(err)
+                        if (err === 'FirebaseError: The value of property "content" is longer than 1048487 bytes.') {
+                            toast.error('Media is too large. Must be less than 1.05MB', {
+                                position: toast.POSITION.BOTTOM_RIGHT
+                            });
+                        }
+
+                        toast.error('Something went wrong', {
+                            position: toast.POSITION.BOTTOM_RIGHT
+                        });
                     })
 
                 })
                 .catch(err => {
                     console.log(err)
+
+                    if (err === 'FirebaseError: The value of property "content" is longer than 1048487 bytes.') {
+                        toast.error('Media is too large. Must be less than 1.05MB', {
+                            position: toast.POSITION.BOTTOM_RIGHT
+                        });
+                    }
+
+                    toast.error('Something went wrong', {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
                 })
                 
                 
