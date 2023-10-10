@@ -1,5 +1,7 @@
 import React from 'react'
 import TonikPick from './TonikPick'
+import FeaturedBlogs from './FeaturedBlogs'
+import ByTags from './ByTags'
 import { Link } from 'react-router-dom'
 import './home.scss'
 
@@ -20,6 +22,8 @@ function index() {
         </div>
       </div>
     </section>
+    <FeaturedBlogs/>
+    <ByTags/>
     </>
     
     

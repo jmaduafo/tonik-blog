@@ -6,10 +6,12 @@ function Create({ setTitle, title, setValue, value, setTags, tags, setImage, ima
     
     const [ module, setModule ] = useState({
         toolbar: [
-          [{ 'header': [1, 2, 3, false] }],
+          [{ 'header': [2, 3, false] }],
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+          [{ 'script': 'sub'}, { 'script': 'super' }],
           ['link', 'image'],
+          [{ 'align': [] }],
           ['clean']
         ],
     })

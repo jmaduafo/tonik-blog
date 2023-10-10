@@ -77,6 +77,8 @@ function Detail() {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
 
+                    setClick(prev => !prev)
+
                     setInputStr('')
                 } catch (err) {
                     toast.error('Something went wrong', {

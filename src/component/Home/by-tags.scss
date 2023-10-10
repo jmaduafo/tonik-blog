@@ -1,0 +1,51 @@
+.discovery-section {
+    padding: 1.5rem 2rem 3.5rem;
+    width: 80%;
+    margin: 0 auto;
+
+    .discovery-header {
+        font-size: 15px;
+        padding: 4px 15px;
+        color: white; 
+        background-color: black;
+        border-radius: 15px;
+        width: fit-content;
+    }
+
+    .discovery {
+        display: flex;
+        align-items: center;
+        margin-top: 2.5rem;
+        gap: 5rem;
+
+        .info {
+            flex: 1;
+
+            h4 {
+                margin-bottom: 20px;
+            }
+
+            .content {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .discovery-btn {
+                margin-top: 15px;
+                padding: 10px 40px;
+            }
+        }
+
+        .image {
+            flex: 1;
+            height: 32rem;
+            object-fit: cover;
+            object-position: bottom;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
