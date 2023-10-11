@@ -80,7 +80,7 @@ function Profile() {
 
     useEffect(function() {
         getUserPosts()
-    }, [])
+    }, [userId])
 
   return (
     <section>

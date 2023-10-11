@@ -19,7 +19,7 @@ function BlogsForYou() {
 
         const blogs = []
         docSnap.forEach(doc => {
-          blogs.push(doc.data())
+          blogs.push({...doc.data(), id: doc.id})
         })
 
         setBlogsList(blogs)
