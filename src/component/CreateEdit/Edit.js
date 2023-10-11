@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useParams } from 'react-router-dom';
+import { auth, db } from '../../firebase/config';
+import { query, doc, getDoc } from 'firebase/firestore';
+import parse from 'html-react-parser';
 
 function Edit({ setTitle, title, setValue, value, setTags, tags, setImage, image }) {
+  const { userId, postId } = useParams();
+  const [ editDoc, setEditDoc ] = useState();
+
     const [ module, setModule ] = useState({
         toolbar: [
           [{ 'header': [2, 3, false] }],
@@ -14,6 +21,23 @@ function Edit({ setTitle, title, setValue, value, setTags, tags, setImage, image
           ['clean']
         ],
     })
+
+    function editValue() {
+      const getEditRef = doc(db, "posts", postId);
+
+      async function getPost() {
+        const docSnap = await getDoc(getEditRef);
+
+        setEditDoc(docSnap.data())
+      }
+
+      getPost()
+    }
+
+    useEffect(function() {
+      editValue();
+      console.log(editDoc)
+    }, [])
 
   return (
     <div className='create-edit'>

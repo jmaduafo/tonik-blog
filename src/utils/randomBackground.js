@@ -2,7 +2,7 @@ export function registerBackground() {
     const background = [
         {
             id: 1,
-            image: "https://res.cloudinary.com/dyxxn831a/image/upload/v1696452392/tonik/tonik4-crop_nym06f.gif"
+            image: "https://res.cloudinary.com/dyxxn831a/image/upload/v1696949441/tonik/tonik4_pwczbs.gif"
         }, 
         {
             id: 2,

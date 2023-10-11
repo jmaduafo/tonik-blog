@@ -35,7 +35,7 @@ function BlogsForYou() {
 
   useEffect(function() {
     blogsRender()
-  }, [auth?.currentUser])
+  }, [])
 
   return (
     <section className='blog-section'>

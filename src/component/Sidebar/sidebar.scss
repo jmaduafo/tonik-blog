@@ -55,8 +55,11 @@ aside {
 
             .search {
                 padding: 20px 0;
-
                 border-bottom: 1px solid #ffffff20;
+
+                &:last-child {
+                    border: none;
+                }
             }
 
             .search-users {
@@ -64,7 +67,14 @@ aside {
                     display: flex;
                     align-items: center;
                     gap: 10px;
+                    padding: 10px;
+                    border-radius: 10px;
+                    transition: all .4s ease;
                     margin-bottom: 5px;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, .1);   
+                    }
 
                     .user-image {
                         width: 30px;
@@ -80,21 +90,40 @@ aside {
                         }
                     }
                 }
+
             }
 
-            .search-tags {
+            .search-posts {
                 div {
-                    margin-bottom: 10px;
-                    p {
-                        padding: 3px 10px;
-                        background-color: #fff;
-                        color: black;
-                        width: fit-content;
-                        border-radius: 10px;
+                    margin-bottom: 5px;
+                    padding: 10px;
+                    border-radius: 10px;
+                    transition: all .4s ease;
+
+                    .title {
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                    } 
+                    
+                    &:hover {
+                        background-color: rgba(255, 255, 255, .1);   
                     }
                 }
-                
             }
+
+            // .search-tags {
+            //     div {
+            //         margin-bottom: 10px;
+            //         p {
+            //             padding: 3px 10px;
+            //             background-color: #fff;
+            //             color: black;
+            //             width: fit-content;
+            //             border-radius: 10px;
+            //         }
+            //     }
+                
+            // }
 
             &::-webkit-scrollbar {
                 width: 2px;

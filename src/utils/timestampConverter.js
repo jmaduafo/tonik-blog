@@ -6,8 +6,6 @@ export const timestamp = (timestamp) => {
 
     if (+date.getFullYear() === +formattedDate.slice(-4)) {
         formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    } else {
-        formattedDate = formattedDate
     }
 
     return formattedDate
