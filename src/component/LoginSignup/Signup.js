@@ -11,6 +11,8 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
     const [ password, setPassword ] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
+    const [ usernameDupli, setUsernameDupli] = useState();
+
 
     let navigate = useNavigate()
 
@@ -22,11 +24,13 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
                 
                 const querySnapshot = await getDocs(usernameValidation);
                 
-                console.log(querySnapshot)
-                querySnapshot.forEach((doc) => {
-                    
-                    
-                });
+                const userCheck = [];
+                querySnapshot.forEach(doc => {
+                    userCheck.push(doc)
+                })
+
+                setUsernameDupli(userCheck)
+
             }
 
             usernameCheck()
@@ -41,7 +45,9 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
                 setErrorMessage('Email or password fields cannot be empty')
             } else if (password.length < 6)  {   
                 setErrorMessage('Password must be 6 characters or more')
-            } else {
+            } else if (usernameDupli?.length) {
+                setErrorMessage('Sorry, this username has already been taken')
+            }else {
                 
                 createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {

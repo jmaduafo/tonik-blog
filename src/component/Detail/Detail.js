@@ -73,6 +73,8 @@ function Detail() {
                         commenter()
                     })
 
+
+
                     toast.success('Posted successfully!', {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
@@ -90,6 +92,26 @@ function Detail() {
             }
 
             commentAdd()
+
+            async function commentCount() {
+
+                const postRef = query(collection(db, "posts"), where("id", "==", postId));
+            
+                const postSnap = await getDocs(postRef)
+    
+                postSnap.forEach(doc => {
+                    async function getCommentCount() {
+                        await updateDoc(doc.ref, {
+                            commentCount: commentDisplay?.length
+                        })
+                    }   
+                    getCommentCount()      
+                })  
+
+            }
+
+            commentCount();
+            
         }
 
         
@@ -104,21 +126,21 @@ function Detail() {
             const comments= []
   
             docSnap.forEach(doc => {
-              comments.push({...doc.data(), id: doc.id})
-              
+              comments.push({...doc.data(), id: doc.id})             
             })
   
-            setCommentDisplay(comments)
+            setCommentDisplay(comments)  
+            
         }
-        getComments()
+        getComments()      
 
-        
+
       }
 
     useEffect(function() {
         detailGet()
         showComments()
-        // console.log(commentDisplay)
+        // console.log(detailInfo)
 
     }, [clicked])
   return (
@@ -192,7 +214,7 @@ function Detail() {
                     <div className='show-comment'>
                         {commentDisplay?.map(comment => {
                             return (
-                                <div className='user-info' key={comment.timestamp?.seconds}>
+                                <div className='user-info' key={comment.id}>
                                     <div className='user'>
                                         <Link to={comment.user?.id === auth?.currentUser?.uid ? '/profile/user' : `/profile/${comment.user?.id}`}>
                                             <div className='user-image'>

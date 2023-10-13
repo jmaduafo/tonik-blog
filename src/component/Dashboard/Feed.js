@@ -133,7 +133,7 @@ function Feed({ userInfo, setFollowing, following, selected }) {
                     <div className='comment-save'>
                       <div>
                         <i className='bx bxs-message-rounded-dots' ></i>
-                        <p>0 comments</p>
+                        <p>{feed.commentCount ? feed.commentCount : '0'} comment{feed.commentCount && feed.commentCount === 1 ? '' : 's'}</p>
                       </div>
                       <div>
                         <i className='bx bxs-bookmark'></i>

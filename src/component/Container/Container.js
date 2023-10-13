@@ -78,6 +78,24 @@ function Container({ userInfo, setFollowing, following }) {
                                     commentCount: 0,
                                     timestamp: serverTimestamp()
                                 })
+
+                                const newPostRef = query(collection(db, 'posts'), orderBy("timestamp", "desc"), limit(1))
+                                const postSnap = await getDocs(newPostRef);
+
+                                const userRef = doc(db, "users", auth?.currentUser?.uid)
+                                const userSnap = await getDoc(userRef)
+                                    
+                                postSnap.forEach(post => {
+                                    async function postDash() {
+                                        await updateDoc(post.ref, {
+                                            id: post.id,
+                                            user: userSnap.data()
+                                        })
+            
+                                    }
+            
+                                    postDash()
+                                })
         
                                 
                             } catch (err) {
@@ -98,59 +116,6 @@ function Container({ userInfo, setFollowing, following }) {
                         }
         
                         postContent()
-
-                        async function userPostContent() {
-
-                            const postRef = query(collection(db, 'posts'), orderBy("timestamp", "desc"), limit(1))
-
-                            try {
-                                async function postGet() {
-                                    // Get latest post
-                                    const docSnap = await getDocs(postRef)
-                                    
-    
-                                    docSnap.forEach(docRef => {
-                                        console.log(docRef.data())
-                                        const userRef = doc(db, 'users', docRef.data().user_id)
-    
-                                       // Getting the user data from collection and pushing to an empty array
-                                        async function userPost() {
-                                            // Getting one doc
-                                            const docSnap = await getDoc(userRef)
-
-                                            // Use doc() when referencing a doc; collection() for collection
-                                            const postReference = doc(db, 'posts', docRef.id)
-                                            
-                                            // Setting the user object and updating/adding it to existing post
-                                            await updateDoc(postReference, {
-                                                user: docSnap.data()
-                                            })
-                                        }
-                                        userPost()                                     
-                                    })
-                                }  
-                                postGet()
-
-
-
-                            } catch (err) {
-                                console.log(err)
-                                if (err === 'FirebaseError: The value of property "content" is longer than 1048487 bytes.') {
-                                    toast.error('Media is too large. Must be less than 1.05MB', {
-                                        position: toast.POSITION.BOTTOM_RIGHT
-                                    });
-                                }
-
-                                toast.error('Something went wrong', {
-                                    position: toast.POSITION.BOTTOM_RIGHT
-                                });
-                                toast.success('Something went wrong', {
-                                    position: toast.POSITION.BOTTOM_RIGHT
-                                });
-                            }
-                              
-                        }
-                        userPostContent()
                         
                         toast.success('Post successfully created!', {
                             position: toast.POSITION.BOTTOM_RIGHT

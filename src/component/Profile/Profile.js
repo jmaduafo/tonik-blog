@@ -45,7 +45,7 @@ function Profile() {
             const userRef = query(collection(db, "users"), where("id", "==", userId));
 
             try {
-                async function getProfile() {
+                async function getUserProf() {
                     const postSnap = await getDocs(postRef);
                     const userSnap = await getDocs(userRef);
     
@@ -63,7 +63,7 @@ function Profile() {
     
                     setUserInfo(user)
                 }
-                getProfile()
+                getUserProf()
             } catch (err) {
                 console.log(err)
             }
@@ -184,7 +184,7 @@ function Profile() {
                         <div className='comment-save'>
                           <div>
                             <i className='bx bxs-message-rounded-dots' ></i>
-                            <p>0 comments</p>
+                            <p>{profile.commentCount ? profile.commentCount : '0'} comment{profile.commentCount && profile.commentCount === 1 ? '' : 's'}</p>
                           </div>
                           <div>
                             <i className='bx bxs-bookmark'></i>

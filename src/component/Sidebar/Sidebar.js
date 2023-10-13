@@ -18,6 +18,7 @@ function Sidebar() {
     const [ keyDown, setKeyDown ] = useState(false)
 
     let navigate = useNavigate()
+    let path = window.location.pathname
 
     function getUserPostData() {
         const userRef = collection(db, "users");
@@ -84,7 +85,9 @@ function Sidebar() {
 
     useEffect(function() {
         getUserPostData()
-    }, [keyDown])
+        console.log(userInfo)
+        console.log(postInfo)
+    }, [path])
 
 
 
