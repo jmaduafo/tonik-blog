@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { auth, db } from '../../firebase/config'
-import { onSnapshot, query, collection, doc, where, orderBy, getDocs, updateDoc, getCountFromServer } from 'firebase/firestore'
+import { query, collection, doc, orderBy, getDocs, updateDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 import './feed.scss'
 import parse from 'html-react-parser';
@@ -20,16 +20,6 @@ function Feed({ userInfo, setFollowing, following, selected }) {
 
           docSnap.forEach(doc => {
             posts.push({...doc.data(), id: doc.id})
-
-            // const commentsRef = query(collection(db, "comments"), where("post_id", "==", doc.id))
-
-            // async function getCommentCount() {
-            //   const snapshot = await getCountFromServer(commentsRef);
-
-              
-            // }
-
-            // getCommentCount()
           })
 
           setShowFeed(posts)
@@ -133,7 +123,7 @@ function Feed({ userInfo, setFollowing, following, selected }) {
                     <div className='comment-save'>
                       <div>
                         <i className='bx bxs-message-rounded-dots' ></i>
-                        <p>{feed.commentCount ? feed.commentCount : '0'} comment{feed.commentCount && feed.commentCount === 1 ? '' : 's'}</p>
+                        <p>{feed.commentCount ? feed.commentCount : '2'} comment{feed.commentCount && feed.commentCount === 1 ? '' : 's'}</p>
                       </div>
                       <div>
                         <i className='bx bxs-bookmark'></i>

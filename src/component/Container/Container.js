@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import './container.scss'
 import '../Sidebar/sidebar.scss'
 import { auth, db } from '../../firebase/config'
-import { onSnapshot, query, collection, orderBy, where, updateDoc, addDoc, getDocs, getDoc, doc, setDoc, serverTimestamp, limit } from 'firebase/firestore'
+import { query, collection, orderBy, where, updateDoc, addDoc, getDocs, getDoc, doc, serverTimestamp, limit } from 'firebase/firestore'
 import { storage } from '../../firebase/config'
 import { ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
@@ -24,7 +24,6 @@ function Container({ userInfo, setFollowing, following }) {
     const [ value, setValue ] = useState('')
     const [ image, setImage ] = useState(null)
     const [ tags, setTags ] = useState([])
-    const [ userPostInfo, setUserPostInfo ] = useState()
 
     let navigate = useNavigate()
 
@@ -91,12 +90,10 @@ function Container({ userInfo, setFollowing, following }) {
                                             id: post.id,
                                             user: userSnap.data()
                                         })
-            
                                     }
             
                                     postDash()
                                 })
-        
                                 
                             } catch (err) {
                                 if (err === 'FirebaseError: The value of property "content" is longer than 1048487 bytes.') {
@@ -109,7 +106,6 @@ function Container({ userInfo, setFollowing, following }) {
                                     position: toast.POSITION.BOTTOM_RIGHT
                                 });
         
-                                
                                 console.log(err)
                             }
                             
@@ -150,9 +146,7 @@ function Container({ userInfo, setFollowing, following }) {
                     toast.error('Something went wrong', {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
-                })
-                
-                
+                })   
     
             } else if (window.location.pathname.includes('/edit')) {
                 async function postContent() {

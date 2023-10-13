@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import parse from 'html-react-parser';
 import { auth, db } from '../../firebase/config'
-import { query, collection, where, updateDocs, getDocs } from 'firebase/firestore'
+import { query, collection, where, getDocs } from 'firebase/firestore'
 import { timestamp } from '../../utils/timestampConverter';
 import ContentLoader from "react-content-loader"
 import './profile.scss'

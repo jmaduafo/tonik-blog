@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom'
 import { db, auth } from '../../firebase/config'
 import { doc, collection, getDoc, getDocs, where, addDoc, query, updateDoc, serverTimestamp } from 'firebase/firestore'
 import { timestamp } from '../../utils/timestampConverter'
-import InputEmoji from 'react-input-emoji'
 import { ToastContainer, toast } from 'react-toastify'
 import parse from 'html-react-parser';
 import Picker from 'emoji-picker-react';
@@ -73,8 +72,6 @@ function Detail() {
                         commenter()
                     })
 
-
-
                     toast.success('Posted successfully!', {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
@@ -92,25 +89,6 @@ function Detail() {
             }
 
             commentAdd()
-
-            async function commentCount() {
-
-                const postRef = query(collection(db, "posts"), where("id", "==", postId));
-            
-                const postSnap = await getDocs(postRef)
-    
-                postSnap.forEach(doc => {
-                    async function getCommentCount() {
-                        await updateDoc(doc.ref, {
-                            commentCount: commentDisplay?.length
-                        })
-                    }   
-                    getCommentCount()      
-                })  
-
-            }
-
-            commentCount();
             
         }
 
@@ -132,7 +110,28 @@ function Detail() {
             setCommentDisplay(comments)  
             
         }
-        getComments()      
+        getComments() 
+        
+        if (commentDisplay?.length) {
+            async function commentCount() {
+
+                const postRef = query(collection(db, "posts"), where("id", "==", postId));
+            
+                const postSnap = await getDocs(postRef)
+    
+                postSnap.forEach(doc => {
+                    async function getCommentCount() {
+                        await updateDoc(doc.ref, {
+                            commentCount: commentDisplay?.length
+                        })
+                    }   
+                    getCommentCount()      
+                })  
+
+            }
+
+            commentCount();
+        }
 
 
       }

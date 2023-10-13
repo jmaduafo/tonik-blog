@@ -34,11 +34,6 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
             }
 
             usernameCheck()
-
-            // else if (!userVerify) {
-            //     setErrorMessage('Sorry, this username is already taken')
-            // }
-
             
 
             if (!email.length || !password.length) {
@@ -90,14 +85,8 @@ function Signup({ setLoggedIn, loggedIn, userInfo, setUserInfo}) {
                     setErrorMessage('Something went wrong')
                 });
 
-                setErrorMessage('')
-                
-                 
+                setErrorMessage('')        
         }
-
-       
-
-        
     }   
 
   return (
